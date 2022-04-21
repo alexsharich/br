@@ -1,6 +1,6 @@
 
 import { api } from "../DAL/api";
-import { loginAC } from "./loginReducer";
+import { loginAC, setIsloggedInAC } from "./loginReducer";
 import { AppRootStateType } from "./store";
 
 const initialState = {
@@ -30,12 +30,12 @@ export const authAC = (auth: boolean) => {
         auth
     } as const
 }
-export const authThunkCreator = (auth:boolean) => {
+export const authThunkCreator = () => {
     return (dispatch: any) => {
         api.me()
             .then(res => {
                 dispatch(loginAC(res.data))
-                dispatch(authAC(auth))
+                dispatch(setIsloggedInAC(true))
             })
     }
 }

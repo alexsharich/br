@@ -10,7 +10,7 @@ export const Register = () => {
     let [password, setPassword] = useState('nya-admin@nya.nya')
     let [email, setEmail] = useState('1qazxcvBG')
 
-    const auth = useSelector<AppRootStateType, boolean>(state => state.auth.auth)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
 
     const dispatch = useDispatch()
 
@@ -25,31 +25,7 @@ export const Register = () => {
         dispatch(registerThunkCreator(email, password))
     }
 
-    /*    
-       let [state, setState] = useState('ping')
-   
-       const ping = () => {
-           cardsAPI.ping()
-               .then(res => {
-                   setState(res.data.backTime)
-               })
-       }
-   
-       let [email, setEmail] = useState('')
-       let [password, setPassword] = useState('')
-   
-   
-       const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-           setEmail(e.currentTarget.value)
-       }
-       const onChangePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-           setPassword(e.currentTarget.value)
-       }
-   
-       const onClickSendRegisterInfo = () => {
-           dispatch(registerThunkCreator(email, password))
-       } */
-       if (auth) {
+    if (isLoggedIn) {
         return <Navigate to='/profile' />
     }
 

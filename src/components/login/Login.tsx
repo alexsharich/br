@@ -2,7 +2,6 @@ import React, { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, NavLink } from "react-router-dom";
 import { loginThunkCreator } from "../../BLL/loginReducer";
-//import { loginThunkThunkCreator } from "../../BLL/loginReducer";
 import { AppRootStateType } from "../../BLL/store";
 import s from './Login.module.css'
 
@@ -12,7 +11,7 @@ export const Login = () => {
     let [password, setPassword] = useState('1qazxcvBG')
     let [rememberMe, setRememberMe] = useState(false)
 
-    const auth = useSelector<AppRootStateType, boolean>(state => state.auth.auth)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
 
     const dispatch = useDispatch()
 
@@ -30,18 +29,7 @@ export const Login = () => {
         dispatch(loginThunkCreator(email, password, rememberMe))
     }
 
-
-    /* 
-    const checkAuth = useSelector<AppRootStateType, any>(state => state.checkAuth.checkAuth)
-
-    const SendLoginInfo = () => {
-        dispatch(loginThunkThunkCreator(email, password, rememberMe))
-    }
-    if (checkAuth) {
-        return <Navigate to='/profile' />
-    } */
-
-    if (auth) {
+    if (isLoggedIn) {
         return <Navigate to='/profile' />
     }
 

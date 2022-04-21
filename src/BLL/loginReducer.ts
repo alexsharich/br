@@ -1,6 +1,6 @@
 import React from "react";
 import { SetPassword } from "../components/setPassword/SetPassword";
-import { api, ResponseAuthLoginType } from "../DAL/api";
+import { api, UserType } from "../DAL/api";
 import { authAC, authReducer, authThunkCreator } from "./authReducer";
 //import { setProfileAC } from "./profileReducer";
 
@@ -17,7 +17,8 @@ const initialState = {
     verifed: false,
     rememberMe: false,
 
-    error: ''
+    error: '',
+    isLoggedIn: false
 }
 type initialStateType = {
     _id: string,
@@ -31,10 +32,11 @@ type initialStateType = {
     verifed: boolean,
     rememberMe: boolean,
 
-    error: string | null
+    error: string | null,
+    isLoggedIn: boolean
 }
 
-type ActionsType = ReturnType<typeof loginAC>
+type ActionsType = ReturnType<typeof loginAC> | ReturnType<typeof setIsloggedInAC>
 
 export const loginReducer = (state: any = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
@@ -43,12 +45,23 @@ export const loginReducer = (state: any = initialState, action: ActionsType): in
                 ...state,
                 ...action.data
             }
+        case "SET-ISLOGGEDIN":
+            return {
+                ...state,
+                isLoggedIn: action.isLoggedIn
+            }
         default:
             return state
     }
 }
+export const setIsloggedInAC = (isLoggedIn: boolean) => {
+    return {
+        type: "SET-ISLOGGEDIN",
+        isLoggedIn
+    } as const
+}
 
-export const loginAC = (data: ResponseAuthLoginType) => {
+export const loginAC = (data: UserType) => {
     return {
         type: 'LOGIN',
         data
@@ -60,15 +73,16 @@ export const loginThunkCreator = (email: string, password: string, rememberMe: b
         api.login(email, password, rememberMe)
             .then(res => {
                 dispatch(loginAC(res.data))
-                dispatch(authThunkCreator(true))
+                dispatch(setIsloggedInAC(true))
             })
     }
 }
 export const logoutThunkCreator = () => {
     return (dispatch: any) => {
+        debugger
         api.logout()
             .then(res => {
-                dispatch(authThunkCreator(false))
+                dispatch(setIsloggedInAC(false))
             })
     }
 }

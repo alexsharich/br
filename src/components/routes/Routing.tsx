@@ -9,7 +9,6 @@ import s from './Routing.module.css'
 import { SetPassword } from '../setPassword/SetPassword'
 
 
-
 export const PATH = {
     LOGIN_PAGE: '/login',
     REGISTRATION_PAGE: '/registration',

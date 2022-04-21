@@ -1,5 +1,5 @@
 import { Email } from "@material-ui/icons";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const herokuBaseURLpath = 'https://neko-back.herokuapp.com/2.0'
 const localhost = 'http://localhost:7542/2.0/'
@@ -14,19 +14,19 @@ export const api = {
         return instance.get('ping')
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<ResponseAuthLoginType>('auth/login', { email: email, password: password, rememberMe: rememberMe })
+        return instance.post<any, AxiosResponse<UserType>, LoginType>('auth/login', { email: email, password: password, rememberMe: rememberMe })
     },
     register(email: string, password: string) {
         return instance.post('auth/register', { email: email, password: password })
     },
     me() {
-        return instance.post<ResponseAuthLoginType>('auth/me', {})
+        return instance.post ('auth/me')
     },
     update(name: string, avatar: string) {
         return instance.put('auth/me', { name: name, avatar: avatar })
     },
     logout() {
-        return instance.delete('auth/me')
+        return instance.delete<any, AxiosResponse<ResponseDeleteType>>('auth/me')
     },
     forgot(email: string, from: string, message: string) {
         return instance.post('auth/forgot', { email: email, from: from, message: message })
@@ -36,7 +36,17 @@ export const api = {
     }
 }
 
-export type ResponseAuthLoginType = {
+type LoginType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+type ResponseDeleteType = {
+    info: string
+    error?: string
+}
+
+export type UserType = {
     _id: string;
     email: string;
     name: string;
