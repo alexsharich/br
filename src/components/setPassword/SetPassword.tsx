@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { setNewPasswordThunkCreator } from "../../BLL/loginReducer";
 import s from './SetPassword.module.css'
 
@@ -8,7 +8,11 @@ export const SetPassword = () => {
 
     /// useParams /// token /// to thunk
 
-    let token = 'token'
+    
+
+    const params = useParams<'*'>()
+
+    const token = params['*']
 
     let [firstPassword, setFirstPassword] = useState('')
     let [secondPassword, setSecondPassword] = useState('')

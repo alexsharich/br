@@ -1,0 +1,14 @@
+.tableHeader{
+    width:100px;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgb(108, 118, 139);
+    
+}
+.tableRow{
+    width:100px;
+    text-align: center;
+}
+input{
+    margin: 10px;
+}

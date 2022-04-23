@@ -20,7 +20,7 @@ export const api = {
         return instance.post('auth/register', { email: email, password: password })
     },
     me() {
-        return instance.post ('auth/me')
+        return instance.post('auth/me')
     },
     update(name: string, avatar: string) {
         return instance.put('auth/me', { name: name, avatar: avatar })
@@ -31,7 +31,7 @@ export const api = {
     forgot(email: string, from: string, message: string) {
         return instance.post('auth/forgot', { email: email, from: from, message: message })
     },
-    newPassword(password: string, resetPasswordToken: string) {
+    newPassword(password: string, resetPasswordToken?: string) {
         return instance.post('auth-set-new-password', { password: password, resetPasswordToken: resetPasswordToken })
     }
 }
@@ -58,4 +58,31 @@ export type UserType = {
     verified: boolean; // подтвердил ли почту
     rememberMe: boolean;
     error?: string | null;
+}
+
+export const apiCards = {
+    getPack() {
+        return instance.get('card/pack')
+    },
+    addPack() {
+        return instance.post('card/pack')
+    },
+    deletePack(id: string) {
+        return instance.delete(`card/pack?id=${id}`)
+    },
+    updatePack() {
+        return instance.put('card/pack')
+    },
+    getCards() {
+        return instance.get('cards/card')
+    },
+    addCard() {
+        return instance.post('cards/card')
+    },
+    deleteCard(id: string) {
+        return instance.delete(`cards/card?id=${id}`)
+    },
+    updateCard() {
+        return instance.put('cards/card')
+    }
 }

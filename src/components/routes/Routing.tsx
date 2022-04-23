@@ -7,6 +7,8 @@ import { NotFound } from '../notFound/NotFound'
 import { Profile } from '../profile/Profile'
 import s from './Routing.module.css'
 import { SetPassword } from '../setPassword/SetPassword'
+import { PacksList } from '../packsList/PacksList'
+import { Cards } from '../cards/Cards'
 
 
 export const PATH = {
@@ -15,6 +17,8 @@ export const PATH = {
     PROFILE: '/profile',
     CHANGE_PASSWORD: '/forgot',
     SET_PASSWORD: '/setPassword',
+    PACKS_LIST: '/packs-list',
+    CARDS: '/cards',
     NOT_FOUND: '/404',
     NEW_URL: '*'
 }
@@ -28,6 +32,8 @@ export const Routing = () => {
                 <Route path={PATH.CHANGE_PASSWORD} element={<Forgot />} />
                 <Route path={PATH.NOT_FOUND} element={<NotFound />} />
                 <Route path={PATH.SET_PASSWORD} element={<SetPassword />} />
+                <Route path={PATH.PACKS_LIST} element={<PacksList />} />
+                <Route path={PATH.CARDS} element={<Cards />} />
                 <Route path={PATH.PROFILE} element={<Profile />} />
                 <Route path={PATH.NEW_URL} element={<Navigate to='/404' />} />
             </Routes>

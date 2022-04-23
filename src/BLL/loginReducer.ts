@@ -97,7 +97,7 @@ export const forgotThunkCreator = (email: string) => {
         }
     }
 }
-export const setNewPasswordThunkCreator = (password: string, token: string) => {
+export const setNewPasswordThunkCreator = (password: string, token: string | undefined) => {
     return async (dispatch: any) => {
         await api.newPassword(password, token)
         try {

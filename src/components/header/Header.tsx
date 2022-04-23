@@ -12,6 +12,8 @@ export const Header = () => {
             <NavLink to={'/registration'}>Registration</NavLink>
             <NavLink to={'/setPassword'}>Set Password</NavLink>
             <NavLink to={'/profile'}>Profile</NavLink>
+            <NavLink to={'/packs-list'}>Packs list</NavLink>
+            <NavLink to={'/cards'}>Cards</NavLink>
         </div>
     )
 }
