@@ -1,20 +1,34 @@
 import React from "react";
 import s from './Pagination.module.css'
 
-export const Paginator = () => {
+type PaginatorPropsType = {
+    totalCount: number
+}
 
-    let pages: number = 10
-    let renderPage = []
+export const Paginator = ({ totalCount }: PaginatorPropsType) => {
 
-    for (let i = 0; i <= pages; i++) {
-        renderPage.push(i)
+    let totalpagesCount = []
+
+    for (let i = 0; i <= totalCount; i++) {
+        totalpagesCount.push(i)
     }
 
     return (
-        <div className={s.pagination}>
-            <div className={s.numberPage}>{'<'}</div>
-            {renderPage.map(numberPage => <span className={s.numberPage}>{numberPage}</span>)}
-            <div className={s.numberPage}>{'>'}</div>
+        <div>
+            <div className={s.pagination}>
+                <div className={s.numberPage}>{'<'}</div>
+                {totalpagesCount.map(totalpagesCount => <span className={s.numberPage}>{totalpagesCount}</span>)}
+                <div className={s.numberPage}>{'>'}</div>
+            </div>
+            <div>
+                <span>Show</span>
+                <select  >
+                    {totalpagesCount.map(page => {
+                        return <option >{page}</option>
+                    })}
+                </select>
+                <span>Cards per Page</span>
+            </div>
         </div>
     )
 }

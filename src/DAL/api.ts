@@ -60,18 +60,19 @@ export type UserType = {
     error?: string | null;
 }
 
+
 export const apiCards = {
-    getPack() {
-        return instance.get('card/pack')
+    getPacks() {
+        return instance.get('cards/pack')
     },
     addPack() {
-        return instance.post('card/pack')
+        return instance.post('cards/pack')
     },
     deletePack(id: string) {
-        return instance.delete(`card/pack?id=${id}`)
+        return instance.delete(`cards/pack?id=${id}`)
     },
     updatePack() {
-        return instance.put('card/pack')
+        return instance.put('cards/pack')
     },
     getCards() {
         return instance.get('cards/card')

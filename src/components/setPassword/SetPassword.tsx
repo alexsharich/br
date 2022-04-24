@@ -1,18 +1,17 @@
 import React, { ChangeEvent, useState } from "react";
-import { useDispatch } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, NavLink, useParams } from "react-router-dom";
 import { setNewPasswordThunkCreator } from "../../BLL/loginReducer";
+import { AppRootStateType } from "../../BLL/store";
 import s from './SetPassword.module.css'
 
 export const SetPassword = () => {
 
-    /// useParams /// token /// to thunk
-
-    
-
     const params = useParams<'*'>()
 
     const token = params['*']
+
+    const auth = useSelector<AppRootStateType, boolean>(state => state.auth.auth)
 
     let [firstPassword, setFirstPassword] = useState('')
     let [secondPassword, setSecondPassword] = useState('')
@@ -32,6 +31,10 @@ export const SetPassword = () => {
         } else {
             alert('Incorrect password')
         }
+    }
+
+    if (auth) {
+        return <Navigate to='/profile' />
     }
 
     return (

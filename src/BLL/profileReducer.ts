@@ -1,21 +1,16 @@
 import React from "react";
 
-
-
-
-/* const initialState = {
+const initialState = {
     _id: '',
     email: '',
     name: '',
     avatar: '',
     publicCardPacksCount: null,
-
-    createdDate:null,
-    updated:null,
-    isAdmin:false,
-    verifed:false,
-    rememberMe:false,
-
+    createdDate: null,
+    updated: null,
+    isAdmin: false,
+    verifed: false,
+    rememberMe: false,
     error: ''
 }
 type initialStateType = {
@@ -24,34 +19,29 @@ type initialStateType = {
     name: string,
     avatar?: string,
     publicCardPacksCount: number | null,
-    createdDate:null | Date,
-    updated:null | Date,
-    isAdmin:boolean,
-    verifed:boolean,
-    rememberMe:boolean,
-
+    createdDate: null | Date,
+    updated: null | Date,
+    isAdmin: boolean,
+    verifed: boolean,
+    rememberMe: boolean,
     error: string | null
 }
 
-export const profileReducer = (state:initialStateType= initialState,action:any): initialStateType=>{
-    switch (action.type){
+export const profileReducer = (state: initialStateType = initialState, action: any): initialStateType => {
+    switch (action.type) {
         case 'SET-PEOFILE':
             return {
                 ...state,
                 ...action.data
             }
-            default:
-                return state       
+        default:
+            return state
     }
 }
-export const setProfileAC = (data:any) =>{
+export const setProfileAC = (data: any) => {
     return {
-        type:'SET-PROFILE',
+        type: 'SET-PROFILE',
         data: data
     }
 }
-export const setProfileThunkCreator = ()=>{
-    return (dispatch:any)=>{
 
-    }
-} */

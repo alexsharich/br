@@ -1,6 +1,7 @@
 
-import { api } from "../DAL/api";
-import { loginAC, setIsloggedInAC } from "./loginReducer";
+import { api, apiCards } from "../DAL/api";
+import { loginAC } from "./loginReducer";
+import { setProfileAC } from "./profileReducer";
 import { AppRootStateType } from "./store";
 
 const initialState = {
@@ -9,7 +10,7 @@ const initialState = {
 type InitialStateType = {
     auth: boolean
 }
-type ActionType = ReturnType<typeof authAC>
+type ActionType = ReturnType<typeof setAuthAC>
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
@@ -24,21 +25,28 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 }
 
 
-export const authAC = (auth: boolean) => {
+export const setAuthAC = (auth: boolean) => {
     return {
         type: 'AUTH',
         auth
     } as const
 }
 export const authThunkCreator = () => {
-    return (dispatch: any) => {
-        api.me()
-            .then(res => {
-                dispatch(loginAC(res.data))
-                dispatch(setIsloggedInAC(true))
-            })
+    return async (dispatch: any) => {
+        let result = await api.me()
+        try {
+            dispatch(loginAC(result.data))
+            dispatch(setAuthAC(true))
+            dispatch(setProfileAC(result.data))
+        } catch (e: any) {
+            alert('authThunkCreator')
+        }
     }
 }
+
+
+
+
 
 
 

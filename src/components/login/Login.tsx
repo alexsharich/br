@@ -11,7 +11,7 @@ export const Login = () => {
     let [password, setPassword] = useState('1qazxcvBG')
     let [rememberMe, setRememberMe] = useState(false)
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+    const auth = useSelector<AppRootStateType, boolean>(state => state.auth.auth)
 
     const dispatch = useDispatch()
 
@@ -29,7 +29,7 @@ export const Login = () => {
         dispatch(loginThunkCreator(email, password, rememberMe))
     }
 
-    if (isLoggedIn) {
+    if (auth) {
         return <Navigate to='/profile' />
     }
 

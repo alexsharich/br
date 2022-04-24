@@ -10,7 +10,7 @@ export const Register = () => {
     let [password, setPassword] = useState('nya-admin@nya.nya')
     let [email, setEmail] = useState('1qazxcvBG')
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+    const auth = useSelector<AppRootStateType, boolean>(state => state.auth.auth)
 
     const dispatch = useDispatch()
 
@@ -25,7 +25,7 @@ export const Register = () => {
         dispatch(registerThunkCreator(email, password))
     }
 
-    if (isLoggedIn) {
+    if (auth) {
         return <Navigate to='/profile' />
     }
 

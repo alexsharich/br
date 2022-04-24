@@ -19,9 +19,9 @@ export const registerThunkCreator = (email: string, password: string) => {
         try {
             await api.register(email, password)
             alert('you are cool')
-        } catch (e:any) {
+        } catch (e: any) {
             alert(e.message)
-              }
+        }
     }
 }
 

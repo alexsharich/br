@@ -1,8 +1,6 @@
 import React from "react";
-import { SetPassword } from "../components/setPassword/SetPassword";
 import { api, UserType } from "../DAL/api";
-import { authAC, authReducer, authThunkCreator } from "./authReducer";
-//import { setProfileAC } from "./profileReducer";
+import {  setAuthAC } from "./authReducer";
 
 const initialState = {
     _id: '',
@@ -10,13 +8,11 @@ const initialState = {
     name: '',
     avatar: '',
     publicCardPacksCount: null,
-
     createdDate: null,
     updated: null,
     isAdmin: false,
     verifed: false,
     rememberMe: false,
-
     error: '',
     isLoggedIn: false
 }
@@ -31,12 +27,11 @@ type initialStateType = {
     isAdmin: boolean,
     verifed: boolean,
     rememberMe: boolean,
-
     error: string | null,
     isLoggedIn: boolean
 }
 
-type ActionsType = ReturnType<typeof loginAC> | ReturnType<typeof setIsloggedInAC>
+type ActionsType = ReturnType<typeof loginAC> | ReturnType<typeof setAuthAC>
 
 export const loginReducer = (state: any = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
@@ -45,21 +40,11 @@ export const loginReducer = (state: any = initialState, action: ActionsType): in
                 ...state,
                 ...action.data
             }
-        case "SET-ISLOGGEDIN":
-            return {
-                ...state,
-                isLoggedIn: action.isLoggedIn
-            }
         default:
             return state
     }
 }
-export const setIsloggedInAC = (isLoggedIn: boolean) => {
-    return {
-        type: "SET-ISLOGGEDIN",
-        isLoggedIn
-    } as const
-}
+
 
 export const loginAC = (data: UserType) => {
     return {
@@ -69,24 +54,26 @@ export const loginAC = (data: UserType) => {
 }
 
 export const loginThunkCreator = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: any) => {
-        api.login(email, password, rememberMe)
-            .then(res => {
-                dispatch(loginAC(res.data))
-                dispatch(setIsloggedInAC(true))
-            })
+    return async (dispatch: any) => {
+        const result = await api.login(email, password, rememberMe)
+        try {
+            dispatch(loginAC(result.data))
+            dispatch(setAuthAC(true))
+        } catch (e: any) {
+            alert('loginThunkCreator')
+        }
     }
 }
 export const logoutThunkCreator = () => {
-    return (dispatch: any) => {
-        debugger
-        api.logout()
-            .then(res => {
-                dispatch(setIsloggedInAC(false))
-            })
+    return async (dispatch: any) => {
+        await api.logout()
+        try {
+            dispatch(setAuthAC(false))
+        } catch (e: any) {
+            alert('logoutThunkCreator')
+        }
     }
 }
-
 export const forgotThunkCreator = (email: string) => {
     return async (dispatch: any) => {
         await api.forgot('string', 'test', 'blablabla')
@@ -107,38 +94,3 @@ export const setNewPasswordThunkCreator = (password: string, token: string | und
         }
     }
 }
-
-/* export const loginReducer = (state: any = initialState, action: TypeLoginType) => {
-    switch (action.type) {
-        case 'LOGIN':
-            return {
-                ...state,
-                ...action.data,
-
-            };
-
-        default:
-            return state
-    }
-}
-export type TypeLoginType = {
-    type: 'LOGIN',
-    data: ResponseAuthLoginType,
-
-}
-export const loginAC = (data: ResponseAuthLoginType) => {
-    return {
-        type: 'LOGIN',
-        data: data
-
-    }
-}
-export const loginThunkThunkCreator = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: any) => {
-        cardsAPI.login(email, password, rememberMe)
-            .then(res => {
-                dispatch(loginAC(res.data))
-                dispatch(checkAuthAC(true))
-            })
-    }
-} */

@@ -12,3 +12,7 @@
 input{
     margin: 10px;
 }
+.deletePackButton{
+    background-color: rgb(254, 96, 96);
+    color: rgb(248, 247, 244);
+}
