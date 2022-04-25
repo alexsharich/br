@@ -46,9 +46,9 @@ export const setPacksListAC = (cardPacks: any) => {
     } as const
 }
 
-export const getPacksListTC = () => {
+export const getPacksListTC = (page:number) => {
     return async (dispatch: any) => {
-        const result = await apiCards.getPacks()
+        const result = await apiCards.getPacks(page)
         try {
             dispatch(setPacksListAC(result.data))
         } catch (e: any) {
@@ -61,7 +61,7 @@ export const deletePackTC = (id: string) => {
         const result = await apiCards.deletePack(id)
         try {
             debugger
-            dispatch(getPacksListTC())
+            dispatch(getPacksListTC(1))
         } catch (e: any) {
             debugger
             alert('deletePackTC')

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getPacksListTC } from "../../BLL/packsListReducer";
 import s from './Pagination.module.css'
 
 type PaginatorPropsType = {
@@ -7,27 +9,35 @@ type PaginatorPropsType = {
 
 export const Paginator = ({ totalCount }: PaginatorPropsType) => {
 
-    let totalpagesCount = []
+    const dispatch = useDispatch()
 
-    for (let i = 0; i <= totalCount; i++) {
-        totalpagesCount.push(i)
+    const getPage = (page: number) => {
+        dispatch(getPacksListTC(page))
+    }
+
+    let pageNumber = []
+
+    for (let i = 1; i <= totalCount; i++) {
+        pageNumber.push(i)
     }
 
     return (
         <div>
             <div className={s.pagination}>
                 <div className={s.numberPage}>{'<'}</div>
-                {totalpagesCount.map(totalpagesCount => <span className={s.numberPage}>{totalpagesCount}</span>)}
+                {pageNumber.map(pageNumber => {
+                    return <span className={s.numberPage} onClick={() => getPage(pageNumber)} >{pageNumber}</span>
+                })}
                 <div className={s.numberPage}>{'>'}</div>
             </div>
             <div>
                 <span>Show</span>
-                <select  >
-                    {totalpagesCount.map(page => {
+                <select >
+                    {pageNumber.map(page => {
                         return <option >{page}</option>
                     })}
                 </select>
-                <span>Cards per Page</span>
+                <span>cards per Page</span>
             </div>
         </div>
     )

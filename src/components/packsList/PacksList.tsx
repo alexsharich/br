@@ -11,7 +11,7 @@ import s from './PacksList.module.css'
 export const PacksList = () => {
 
     useEffect(() => {
-        dispatch(getPacksListTC())
+        dispatch(getPacksListTC(1))
     }, [])
 
     const dispatch = useDispatch()

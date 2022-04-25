@@ -62,8 +62,8 @@ export type UserType = {
 
 
 export const apiCards = {
-    getPacks() {
-        return instance.get('cards/pack')
+    getPacks(page:number=1) {
+        return instance.get(`cards/pack?pageCount=10&page=${page}`)
     },
     addPack() {
         return instance.post('cards/pack')

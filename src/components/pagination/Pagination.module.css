@@ -2,12 +2,19 @@
     width: 30px;
     height: 30px;
     text-align: center;
-    border: 2px solid black ;
+    border: 2px solid black;
     background-color: rgb(127, 170, 255);
     border-radius: 5px;
     margin: 3px;
 }
-.pagination{
+
+.numberPage:hover {
+    cursor: pointer;
+    background: rgb(90, 144, 250);
+    transition: .5s all;
+}
+
+.pagination {
     display: flex;
     flex-direction: row;
 }
