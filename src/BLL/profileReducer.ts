@@ -29,7 +29,7 @@ type initialStateType = {
 
 export const profileReducer = (state: initialStateType = initialState, action: any): initialStateType => {
     switch (action.type) {
-        case 'SET-PEOFILE':
+        case 'SET-PROFILE':
             return {
                 ...state,
                 ...action.data

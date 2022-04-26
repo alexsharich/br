@@ -11,12 +11,12 @@ const initialState = {
     createdDate: null,
     updated: null,
     isAdmin: false,
-    verifed: false,
+    verified: false,
     rememberMe: false,
     error: '',
-    isLoggedIn: false
+    created: null 
 }
-type initialStateType = {
+export type initialStateType = {
     _id: string,
     email: string,
     name: string,
@@ -25,10 +25,10 @@ type initialStateType = {
     createdDate: null | Date,
     updated: null | Date,
     isAdmin: boolean,
-    verifed: boolean,
+    verified: boolean,
     rememberMe: boolean,
     error: string | null,
-    isLoggedIn: boolean
+    created: any
 }
 
 type ActionsType = ReturnType<typeof loginAC> | ReturnType<typeof setAuthAC>
