@@ -60,7 +60,6 @@ export type UserType = {
     error?: string | null;
 }
 
-
 export const apiCards = {
     getPacks(page:number=1) {
         return instance.get(`cards/pack?pageCount=10&page=${page}`)

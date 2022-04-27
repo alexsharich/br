@@ -5,6 +5,7 @@ import { cardsReducer } from "./cardsReducer";
 import { loginReducer } from "./loginReducer";
 import { packsListReducer } from "./packsListReducer";
 import { profileReducer } from "./profileReducer";
+import { progressReducer } from "./progressReducer";
 //import { profileReducer } from "./profileReducer";
 
 
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     login: loginReducer,
     auth: authReducer,
     packs: packsListReducer,
-    cards:cardsReducer
+    cards:cardsReducer,
+    progress:progressReducer
 })
 
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { apiCards } from '../DAL/api'
+import { setProgressThunkCreator } from './progressReducer'
 
 const initialState = {
     cardPacks: [
@@ -48,23 +49,28 @@ export const setPacksListAC = (cardPacks: any) => {
 
 export const getPacksListTC = (page:number) => {
     return async (dispatch: any) => {
+        dispatch(setProgressThunkCreator(true))
         const result = await apiCards.getPacks(page)
         try {
             dispatch(setPacksListAC(result.data))
+            dispatch(setProgressThunkCreator(false))
         } catch (e: any) {
-
+            dispatch(setProgressThunkCreator(false))
         }
     }
 }
 export const deletePackTC = (id: string) => {
     return async (dispatch: any) => {
+        dispatch(setProgressThunkCreator(true))
         const result = await apiCards.deletePack(id)
         try {
             debugger
             dispatch(getPacksListTC(1))
+            dispatch(setProgressThunkCreator(false))
         } catch (e: any) {
             debugger
             alert('deletePackTC')
+            dispatch(setProgressThunkCreator(false))
         }
     }
 }

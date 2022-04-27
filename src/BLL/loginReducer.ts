@@ -1,6 +1,7 @@
 import React from "react";
 import { api, UserType } from "../DAL/api";
-import {  setAuthAC } from "./authReducer";
+import { setAuthAC } from "./authReducer";
+import { setProgressThunkCreator } from "./progressReducer";
 
 const initialState = {
     _id: '',
@@ -14,7 +15,7 @@ const initialState = {
     verified: false,
     rememberMe: false,
     error: '',
-    created: null 
+    created: null
 }
 export type initialStateType = {
     _id: string,
@@ -55,30 +56,38 @@ export const loginAC = (data: UserType) => {
 
 export const loginThunkCreator = (email: string, password: string, rememberMe: boolean) => {
     return async (dispatch: any) => {
+        dispatch(setProgressThunkCreator(true))
         const result = await api.login(email, password, rememberMe)
         try {
             dispatch(loginAC(result.data))
             dispatch(setAuthAC(true))
+            dispatch(setProgressThunkCreator(false))
         } catch (e: any) {
             alert('loginThunkCreator')
+            dispatch(setProgressThunkCreator(false))
         }
     }
 }
 export const logoutThunkCreator = () => {
     return async (dispatch: any) => {
+        dispatch(setProgressThunkCreator(true))
         await api.logout()
         try {
             dispatch(setAuthAC(false))
+            dispatch(setProgressThunkCreator(false))
         } catch (e: any) {
             alert('logoutThunkCreator')
+            dispatch(setProgressThunkCreator(false))
         }
     }
 }
 export const forgotThunkCreator = (email: string) => {
     return async (dispatch: any) => {
+        dispatch(setProgressThunkCreator(true))
         await api.forgot('string', 'test', 'blablabla')
         try {
             alert('Your letter is blablabla')
+            dispatch(setProgressThunkCreator(false))
         } catch (e: any) {
             throw new Error('It is just test')
         }
