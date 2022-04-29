@@ -6,7 +6,6 @@ import { loginReducer } from "./loginReducer";
 import { packsListReducer } from "./packsListReducer";
 import { profileReducer } from "./profileReducer";
 import { progressReducer } from "./progressReducer";
-//import { profileReducer } from "./profileReducer";
 
 
 const rootReducer = combineReducers({
@@ -17,8 +16,6 @@ const rootReducer = combineReducers({
     cards:cardsReducer,
     progress:progressReducer
 })
-
-
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 export type AppRootStateType = ReturnType<typeof rootReducer>
