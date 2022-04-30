@@ -24,7 +24,6 @@ export const Login = () => {
     const onChangeRememberMeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setRememberMe(e.currentTarget.checked)
     }
-
     const SendLoginInfo = () => {
         dispatch(loginThunkCreator(email, password, rememberMe))
     }

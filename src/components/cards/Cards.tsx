@@ -10,7 +10,7 @@ export const Cards = () => {
 
     const auth = useSelector<AppRootStateType, boolean>(state => state.auth.auth)
     const cards = useSelector<AppRootStateType, any>(state => state.cards.cards)
-    const cardsTotalCount = useSelector<AppRootStateType,number>(state=>state.cards.pageCount)
+    const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.pageCount)
     const dispatch = useDispatch()
 
     const onClickTestHandler = () => {
@@ -44,7 +44,6 @@ export const Cards = () => {
                             <td>{card.grade}</td>
                         </tr>
                     })}
-
                 </table>
                 <Paginator totalCount={cardsTotalCount} />
             </div>

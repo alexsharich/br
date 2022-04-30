@@ -61,10 +61,8 @@ export const PacksList = () => {
                                 <button>learn</button></td>
                         </tr>
                     })}
-
                 </table>
-                <Paginator totalCount={cardPacksTotalCount}/>
-
+                <Paginator totalCount={cardPacksTotalCount} />
             </div>
         </div>
     )

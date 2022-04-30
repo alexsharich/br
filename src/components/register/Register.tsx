@@ -20,7 +20,6 @@ export const Register = () => {
     const onChangePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
     }
-
     const onClickSendRegisterInfo = () => {
         dispatch(registerThunkCreator(email, password))
     }

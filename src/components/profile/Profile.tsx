@@ -20,8 +20,6 @@ export const Profile = () => {
         dispatch(logoutThunkCreator())
     }
 
-    ///ошибка !!! дщпщге не работает !!! через сервер не идет запрос !!!//////
-
     if (!auth) {
         return <Navigate to='/login' />
     }
