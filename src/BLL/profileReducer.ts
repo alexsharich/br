@@ -27,7 +27,7 @@ type initialStateType = {
     error: string | null
 }
 
-export const profileReducer = (state: initialStateType = initialState, action: any): initialStateType => {
+export const profileReducer = (state: initialStateType = initialState, action: SetProfileActionType): initialStateType => {
     switch (action.type) {
         case 'SET-PROFILE':
             return {
@@ -38,10 +38,16 @@ export const profileReducer = (state: initialStateType = initialState, action: a
             return state
     }
 }
+
+export type SetProfileActionType = {
+    type: 'SET-PROFILE',
+    data: any
+}
+
 export const setProfileAC = (data: any) => {
     return {
         type: 'SET-PROFILE',
         data: data
-    }
+    } as const
 }
 

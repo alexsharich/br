@@ -1,9 +1,21 @@
 
+import { ThunkAction } from "redux-thunk";
 import { api, apiCards } from "../DAL/api";
-import { loginAC } from "./loginReducer";
-import { setProfileAC } from "./profileReducer";
-import { setProgressThunkCreator } from "./progressReducer";
+import { SetCardsActionType } from "./cardsReducer";
+import { loginAC, LoginActionType } from "./loginReducer";
+import { SetPacksListActionType } from "./packsListReducer";
+import { setProfileAC, SetProfileActionType } from "./profileReducer";
+import { SetProgressActionType, setProgressThunkCreator } from "./progressReducer";
 import { AppRootStateType } from "./store";
+
+export type ActionsTypes = SetAuthActionType
+    | SetCardsActionType
+    | LoginActionType
+    | SetPacksListActionType
+    | SetProfileActionType
+    | SetProgressActionType
+
+export type ThunkType = ThunkAction<Promise<void>, AppRootStateType, unknown, ActionsTypes>
 
 const initialState = {
     auth: false
@@ -11,7 +23,7 @@ const initialState = {
 type InitialStateType = {
     auth: boolean
 }
-type ActionType = ReturnType<typeof setAuthAC>
+type ActionType = SetAuthActionType
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
@@ -25,6 +37,10 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     }
 }
 
+export type SetAuthActionType = {
+    type: 'AUTH',
+    auth: boolean
+}
 
 export const setAuthAC = (auth: boolean) => {
     return {
@@ -32,8 +48,8 @@ export const setAuthAC = (auth: boolean) => {
         auth
     } as const
 }
-export const authThunkCreator = () => {
-    return async (dispatch: any) => {
+export const authThunkCreator = (): ThunkType => {
+    return async (dispatch) => {
         dispatch(setProgressThunkCreator(true))
         let result = await api.me()
         try {

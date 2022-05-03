@@ -1,5 +1,6 @@
 import React from 'react'
 import { apiCards } from '../DAL/api'
+import { ThunkType } from './authReducer'
 import { setProgressThunkCreator } from './progressReducer'
 
 const initialState = {
@@ -26,9 +27,9 @@ const initialState = {
     pageCount: 4
 }
 
-type ActionsType = ReturnType<typeof setPacksListAC>
+type ActionType = SetPacksListActionType
 
-export const packsListReducer = (state: any = initialState, action: ActionsType): any => {
+export const packsListReducer = (state: any = initialState, action: ActionType): any => {
     switch (action.type) {
         case 'SET-PACKSLIST':
             return {
@@ -40,15 +41,20 @@ export const packsListReducer = (state: any = initialState, action: ActionsType)
     }
 }
 
+export type SetPacksListActionType = {
+    type: 'SET-PACKSLIST',
+    cardPacks: any
+}
+
 export const setPacksListAC = (cardPacks: any) => {
     return {
         type: 'SET-PACKSLIST',
-        cardPacks: cardPacks
+        cardPacks
     } as const
 }
 
-export const getPacksListTC = (page:number) => {
-    return async (dispatch: any) => {
+export const getPacksListTC = (page: number): ThunkType => {
+    return async (dispatch) => {
         dispatch(setProgressThunkCreator(true))
         const result = await apiCards.getPacks(page)
         try {
@@ -59,8 +65,8 @@ export const getPacksListTC = (page:number) => {
         }
     }
 }
-export const deletePackTC = (id: string) => {
-    return async (dispatch: any) => {
+export const deletePackTC = (id: string): ThunkType => {
+    return async (dispatch) => {
         dispatch(setProgressThunkCreator(true))
         const result = await apiCards.deletePack(id)
         try {

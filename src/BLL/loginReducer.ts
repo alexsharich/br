@@ -1,6 +1,6 @@
 import React from "react";
 import { api, UserType } from "../DAL/api";
-import { setAuthAC } from "./authReducer";
+import { setAuthAC, SetAuthActionType, ThunkType } from "./authReducer";
 import { setProgressThunkCreator } from "./progressReducer";
 
 const initialState = {
@@ -32,9 +32,9 @@ export type initialStateType = {
     created: any
 }
 
-type ActionsType = ReturnType<typeof loginAC> | ReturnType<typeof setAuthAC>
+type ActionType = LoginActionType | SetAuthActionType
 
-export const loginReducer = (state: any = initialState, action: ActionsType): initialStateType => {
+export const loginReducer = (state: any = initialState, action: ActionType): initialStateType => {
     switch (action.type) {
         case 'LOGIN':
             return {
@@ -46,6 +46,10 @@ export const loginReducer = (state: any = initialState, action: ActionsType): in
     }
 }
 
+export type LoginActionType = {
+    type: 'LOGIN'
+    data: UserType
+}
 
 export const loginAC = (data: UserType) => {
     return {
@@ -54,8 +58,8 @@ export const loginAC = (data: UserType) => {
     } as const
 }
 
-export const loginThunkCreator = (email: string, password: string, rememberMe: boolean) => {
-    return async (dispatch: any) => {
+export const loginThunkCreator = (email: string, password: string, rememberMe: boolean): ThunkType => {
+    return async (dispatch) => {
         dispatch(setProgressThunkCreator(true))
         const result = await api.login(email, password, rememberMe)
         try {
@@ -68,8 +72,8 @@ export const loginThunkCreator = (email: string, password: string, rememberMe: b
         }
     }
 }
-export const logoutThunkCreator = () => {
-    return async (dispatch: any) => {
+export const logoutThunkCreator = (): ThunkType => {
+    return async (dispatch) => {
         dispatch(setProgressThunkCreator(true))
         await api.logout()
         try {
@@ -81,8 +85,8 @@ export const logoutThunkCreator = () => {
         }
     }
 }
-export const forgotThunkCreator = (email: string) => {
-    return async (dispatch: any) => {
+export const forgotThunkCreator = (email: string): ThunkType => {
+    return async (dispatch) => {
         dispatch(setProgressThunkCreator(true))
         await api.forgot('string', 'test', 'blablabla')
         try {
@@ -93,8 +97,8 @@ export const forgotThunkCreator = (email: string) => {
         }
     }
 }
-export const setNewPasswordThunkCreator = (password: string, token: string | undefined) => {
-    return async (dispatch: any) => {
+export const setNewPasswordThunkCreator = (password: string, token: string | undefined): ThunkType => {
+    return async (dispatch) => {
         await api.newPassword(password, token)
         try {
             alert('ok')
