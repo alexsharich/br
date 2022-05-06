@@ -9,7 +9,7 @@ type StartStateType = {
 }
 
 beforeEach(() => {
-    const startState = {
+    startState = {
         auth: undefined
     }
 })

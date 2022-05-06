@@ -4,7 +4,7 @@ import { UserType } from "../DAL/api"
 let startState: StartStateType
 
 beforeEach(() => {
-    const startState = {
+    startState = {
         _id: '',
         email: '',
         name: '',
